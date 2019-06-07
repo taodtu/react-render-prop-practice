@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      amount: 0,
+    };
+  }
+
+  onIncrement = () => {
+    this.setState(state => ({ amount: state.amount + 1 }));
+  };
+
+  onDecrement = () => {
+    this.setState(state => ({ amount: state.amount - 1 }));
+  };
+
+  render() {
+    return (
+      <div>
+        <Amount
+          amount={this.state.amount}
+          onIncrement={this.onIncrement}
+          onDecrement={this.onDecrement}
+        />
+
+        <Euro amount={this.state.amount} />
+        <Pound amount={this.state.amount} />
+      </div>
+    );
+  }
 }
+
+const Amount = ({ amount, onIncrement, onDecrement }) => (
+  <div>
+    <span>US Dollar: {amount} </span>
+
+    <button type="button" onClick={onIncrement}>
+      +
+    </button>
+    <button type="button" onClick={onDecrement}>
+      -
+    </button>
+  </div>
+);
+const Euro = ({ amount }) => <p>Euro: {amount * 0.86}</p>;
+
+const Pound = ({ amount }) => <p>Pound: {amount * 0.76}</p>;
 
 export default App;
