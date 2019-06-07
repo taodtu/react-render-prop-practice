@@ -3,7 +3,12 @@ import React, { Component } from 'react';
 const App = () => (
   <div>
     <h1>Currency Converter</h1>
-    <Amount />
+    <Amount render={amount => (
+      <div>
+        <Pound amount={amount} />
+        <Euro amount={amount} />
+      </div>
+    )} />
   </div>
 );
 
@@ -35,8 +40,7 @@ class Amount extends Component {
         <button type="button" onClick={this.onDecrement}>
           -
         </button>
-        <Euro amount={this.state.amount} />
-        <Pound amount={this.state.amount} />
+        {this.props.render(this.state.amount)}
       </div>
     );
   }
